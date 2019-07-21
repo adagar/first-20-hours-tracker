@@ -1,8 +1,9 @@
 /* colours */
 :root{
-    --primary: #fa7952;
+    --primary: #e24f54;
     --secondary: #000000;
-    --title: #666666;
+    --title: #ffffff;
+    --btn-bkg: #666666;
   }
   
   /* layout styles */
@@ -60,14 +61,14 @@
   
   /* form-styles */
   .add-btn{
-    background: var(--title) !important;
+    background: var(--btn-bkg) !important;
   }
   input{
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
   }
   .side-form button{
-    background: var(--title);
+    background: var(--btn-bkg);
     box-shadow: 1px 1px 3px rgba(90,90,90,0.2);
   }
   form .input-field{
