@@ -10,6 +10,7 @@
   <link type="text/css" href="/css/styles.css" rel="stylesheet">
   <script type="text/javascript" src="/js/materialize.min.js"></script>
   <link rel="manifest" href="/manifest.json">
+
   <!--ios support-->
   <link rel="apple-touch-icon" href="/icons/icons-96x96.png">
   <meta name="apple-mobile-web-app-status-bar" content="#ad3f43">
@@ -120,7 +121,7 @@
 
     <!--Add Session Button-->
     <div class="center">
-        <a class="btn-floating btn-small add-btn sidenav-trigger" data-target="side-form">
+        <a class="btn-floating btn-small add-btn sidenav-trigger" data-target="side-session-form">
             <i class="material-icons">alarm_add</i>
         </a>
     </div>
@@ -129,7 +130,7 @@
     <div id="side-form" class="sidenav side-form">
         <form class="add-skill container section">
             <h6>New Skill</h6>
-            <div class="divider">
+            <div class="divider"></div>
                 <div class="input-field">
                     <input id="skill-content" type="text" class="validate">
                     <label for="skill-content">I want to learn:</label>
@@ -138,9 +139,8 @@
                     <input id="skill-resource" type="text" class="validate">
                     <label for="skill-resource">Resources:</label>
                 </div>
-            </div>
             <div class="input-field center">
-                <button class="btn-small">Practice!</button>
+                <button class="btn-small">Start Learning!</button>
             </div>
         </form>
     </div>
@@ -167,5 +167,6 @@
     </div>
 
     <script src="/js/ui.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 </html>
