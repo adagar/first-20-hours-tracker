@@ -1,4 +1,5 @@
-const staticCacheName = "site-static"; // the shell, or static resources
+const staticCacheName = 'site-static'; // the shell, or static resources
+
 const assets = [
     '/',
     '/index.html',
@@ -6,20 +7,22 @@ const assets = [
     '/js/ui.js',
     '/js/materialize.min.js',
     '/css/styles.css',
-    '/css/materialize.css',
-    '/img/clock.png',
+    '/css/materialize.min.css',
+    '/img/dish.png',
     'https://fonts.googleapis.com/icon?family=Material+Icons',
-];
+    'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2'
+  ];
 
-// install service worker
-self.addEventListener('install', (evt) => {
-    console.log('service worker has been installed', evt);
-    // shell cacheing
-    caches.open(staticCacheName)
-        .then(cache => {
-            cache.addAll()
-        })
-});
+// install event
+self.addEventListener('install', evt => {
+    //console.log('service worker installed');
+    evt.waitUntil(
+      caches.open(staticCacheName).then((cache) => {
+        console.log('caching shell assets');
+        cache.addAll(assets);
+      })
+    );
+  });
 
 // activate event
 self.addEventListener('activate', evt => {
