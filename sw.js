@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static'; // the shell, or static resources
+const staticCacheName = 'site-static-v1'; // the shell, or static resources
 
 const assets = [
     '/',
@@ -19,7 +19,7 @@ self.addEventListener('install', evt => {
   evt.waitUntil(
     caches.open(staticCacheName).then((cache) => {
       console.log('caching shell assets');
-      cache.addAll(assets);
+      cache.addAll(assets); //
     })
   );
 });
@@ -27,6 +27,14 @@ self.addEventListener('install', evt => {
 // activate event
 self.addEventListener('activate', evt => {
     console.log('service worker has been activated');
+    evt.waitUntil(
+      caches.keys().then(keys => {
+        return Promise.all(keys
+            .filter(key => key !== staticCacheName)
+            .map(key => caches.delete(key))
+          )
+      })
+    )
 });
 
 // fetch event
