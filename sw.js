@@ -50,6 +50,10 @@ self.addEventListener('fetch', evt => {
             return fetchRes;
           })
         });
-      }).catch(() => caches.match('/pages/fallback.html'))
+      }).catch(() => {
+        if(evt.request.url.indexOf('.html') > -1) { // only returning this page if its an HTML page
+          return caches.match('/pages/fallback.html');
+        }
+      })
     );
 });
