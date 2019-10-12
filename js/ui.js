@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const forms = document.querySelectorAll('.side-form');
     M.Sidenav.init(forms, {edge: 'left'});
 
-    const body = document.querySelector('.skills.container');
-    body.innerHTML = (projects.map(project => _turnProjectIntoDashboardNode(project)).join(''));
+    // const body = document.querySelector('.skills.container');
+    // body.innerHTML = (projects.map(project => _turnProjectIntoDashboardNode(project)).join(''));
     console.log(forms);
 
     console.log("DOM CONTENT LOAD COMPLETE");
