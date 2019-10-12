@@ -3,6 +3,7 @@ const dynamicCache = 'site-dynamic-v1'; // cache for storing dynamic data, like 
 
 const assets = [
     '/',
+    '/pages/fallback.html',
     '/index.html',
     '/js/app.js',
     '/js/ui.js',
@@ -31,7 +32,7 @@ self.addEventListener('activate', evt => {
     evt.waitUntil(
       caches.keys().then(keys => {
         return Promise.all(keys
-            .filter(key => key !== staticCacheName)
+            .filter(key => key !== staticCacheName && key!== dynamicCache)
             .map(key => caches.delete(key))
           )
       })
@@ -49,5 +50,6 @@ self.addEventListener('fetch', evt => {
             return fetchRes;
           })
         });
-      }))
+      }).catch(() => caches.match('/pages/fallback.html'))
+    );
 });
