@@ -15,6 +15,25 @@ const assets = [
     'https://fonts.gstatic.com/s/materialicons/v48/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
   ];
 
+  const MAX_DYNAMIC_CACHE_SIZE = 3;
+
+  /**
+   * limitCacheSize
+   * name = name of cache to limit size of
+   * size = max size of cache (# of items)
+   */
+  const limitCacheSize = (name, size) => {
+    caches.open(name).then(cache => {
+      cache.keys().then(keys => {
+        if(keys.length > size) {
+          // delete first item in array, which is the oldest. Then call this again, in case its STILL too big
+          cache.delete(keys[0]).then(limitCacheSize(name, size));
+        }
+      })
+    })
+  }
+
+
 // install event
 self.addEventListener('install', evt => {
   //console.log('service worker installed');
@@ -47,6 +66,7 @@ self.addEventListener('fetch', evt => {
         return cacheRes || fetch(evt.request).then(fetchRes => {
           return caches.open(dynamicCache).then(cache => {
             cache.put(evt.request.url, fetchRes.clone()); // making a copy of hte fetchRes so that we can return it on next line. Storing request, and response, into cache
+            limitCacheSize(dynamicCache, MAX_DYNAMIC_CACHE_SIZE);
             return fetchRes;
           })
         });
