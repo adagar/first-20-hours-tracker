@@ -24,3 +24,29 @@ db.collection('skill').onSnapshot((snapshot) => {
     });
 })
 
+
+// add new skill
+const addSkillForm = document.querySelector('.add-skill');
+console.log("#### SKILL FORM", addSkillForm);
+
+addSkillForm.addEventListener('submit', evt => {
+    evt.preventDefault();
+
+    const skill = {
+        skill: addSkillForm['skill-content'].value,
+        resources: addSkillForm['skill-resource'].value.split(", "),
+        sessions: []
+    }
+
+    db.collection('skill').add(skill)
+        .catch(err => {
+            console.log(err);
+        });
+
+        addSkillForm['skill-content'].value = '';
+        addSkillForm['skill-resource'].value = '';
+
+})
+
+// add new session
+const addSessionForm = document.querySelector('form.add-session');
