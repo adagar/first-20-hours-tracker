@@ -1,5 +1,5 @@
-const staticCacheName = 'site-static-v1'; // the shell, or static resources
-const dynamicCache = 'site-dynamic-v1'; // cache for storing dynamic data, like when visiting diff pages on site
+const staticCacheName = 'site-static-v3'; // the shell, or static resources
+const dynamicCache = 'site-dynamic-v3'; // cache for storing dynamic data, like when visiting diff pages on site
 
 const assets = [
     '/',
@@ -60,20 +60,22 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-    // console.log('fetch event', evt);
-    // evt.respondWith(
-    //   caches.match(evt.request).then(cacheRes => {
-    //     return cacheRes || fetch(evt.request).then(fetchRes => {
-    //       return caches.open(dynamicCache).then(cache => {
-    //         cache.put(evt.request.url, fetchRes.clone()); // making a copy of hte fetchRes so that we can return it on next line. Storing request, and response, into cache
-    //         limitCacheSize(dynamicCache, MAX_DYNAMIC_CACHE_SIZE);
-    //         return fetchRes;
-    //       })
-    //     });
-    //   }).catch(() => {
-    //     if(evt.request.url.indexOf('.html') > -1) { // only returning this page if its an HTML page
-    //       return caches.match('/pages/fallback.html');
-    //     }
-    //   })
-    // );
+    console.log('fetch event', evt);
+    if(!evt.request.url.includes('firestore.googleapis.com')){
+      evt.respondWith(
+      caches.match(evt.request).then(cacheRes => {
+        return cacheRes || fetch(evt.request).then(fetchRes => {
+          return caches.open(dynamicCache).then(cache => {
+            cache.put(evt.request.url, fetchRes.clone()); // making a copy of hte fetchRes so that we can return it on next line. Storing request, and response, into cache
+            limitCacheSize(dynamicCache, MAX_DYNAMIC_CACHE_SIZE);
+            return fetchRes;
+          })
+        });
+      }).catch(() => {
+        if(evt.request.url.indexOf('.html') > -1) { // only returning this page if its an HTML page
+          return caches.match('/pages/fallback.html');
+        }
+      })
+    );
+  }
 });

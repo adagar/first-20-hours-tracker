@@ -1,3 +1,15 @@
+// offline data
+db.enablePersistence()
+    .catch(err => {
+        if(err.code === 'failed-precondition'){
+            // probably have multi tabs open
+            console.log("Persistence failed");
+        } else if(err.code === 'unimplemented'){
+            // lack of browser support
+            console.log("Persistence not available");
+        }
+    });
+
 // real-time listener
 db.collection('skill').onSnapshot((snapshot) => {
     // console.log(snapshot.docChanges());

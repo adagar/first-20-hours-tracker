@@ -37,7 +37,7 @@ const renderSkill = (data, id) => {
             <div>${session.date}</div>
             <div>${session.description}</div>
             <div>${session.length}</div>
-        </li>`).join('');
+        </li>`).join(''); 
 
     const html = `
         <div class="card-panel skill white row" data-id="${id}">
