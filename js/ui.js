@@ -56,8 +56,16 @@ const renderSkill = (data, id) => {
             </div>
             <div class="skill-total">${totalTime}</div>
             </div>
-            <div class="skill-delete">
-            <i class="material-icons" data-id="${id}">delete_outline</i>
+            
+
+            <!--Add Session Button-->
+            <div class="center">
+                <a class="sidenav-trigger" data-target="side-session-form">
+                    <i class="skill-session-add btn-floating btn-small add-btn material-icons">alarm_add</i>
+                </a>
+                <a class="">
+                    <i class="skill-delete btn-floating btn-small delete-btn material-icons" data-id="${id}">delete_outline</i>
+                </a>
             </div>
         </div>
     `
