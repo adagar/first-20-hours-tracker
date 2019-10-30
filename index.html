@@ -59,11 +59,11 @@
             <h6>New Skill</h6>
             <div class="divider"></div>
                 <div class="input-field">
-                    <input id="skill-content" type="text" class="validate" placeholder="e.g. Singing">
+                    <input placeholder="e.g. Drawing" id="skill-content" type="text" class="validate">
                     <label for="skill-content">I want to learn:</label>
                 </div>
                 <div class="input-field">
-                    <input id="skill-resource" type="text" class="validate" placeholder="e.g. Class, book, video">
+                    <input placeholder="e.g. Course, Video, Book"id="skill-resource" type="text" class="validate" placeholder="e.g. Class, book, video">
                     <label for="skill-resource">Resources:</label>
                 </div>
             <div class="input-field center">
@@ -76,15 +76,16 @@
     <div id="side-session-form" class="sidenav side-form">
         <form class="add-session container section">
             <h6>New Session</h6>
-            <div class="divider">
+            <div class="divider"></div>
+            <div>
                 <div class="input-field">
                     <input id="practice-content" type="text" class="validate">
-                    <input id="practice-time" type="text" class="validate">
                     <label for="practice-content">Today I practiced:</label>
                 </div>
                 <div class="input-field">
-                    <input id="practice-time" type="text" class="validate">
+                    <input id="practice-time" type="number" class="validate">
                     <label for="practice-time">Time Practicing:</label>
+                    <span class="helper-text">Minutes</span>
                 </div>
             </div>
             <div class="input-field center">
