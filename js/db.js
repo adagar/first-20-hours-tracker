@@ -53,9 +53,9 @@ addSkillForm.addEventListener('submit', evt => {
 const addSessionForm = document.querySelector('form.add-session');
 
 
-// delete a recipe
-const recipeContainer = document.querySelector('.skills');
-recipeContainer.addEventListener('click', evt => {
+// delete a skill
+const skillContainer = document.querySelector('.skills');
+skillContainer.addEventListener('click', evt => {
     // only delete if target is a trash icon
     if(evt.target.tagName === "I") {
         // Delete!

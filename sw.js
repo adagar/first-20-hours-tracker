@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v3'; // the shell, or static resources
+const staticCacheName = 'site-static-v4'; // the shell, or static resources
 const dynamicCache = 'site-dynamic-v9'; // cache for storing dynamic data, like when visiting diff pages on site
 
 const assets = [
@@ -8,6 +8,7 @@ const assets = [
     '/js/app.js',
     '/js/ui.js',
     '/js/materialize.min.js',
+    '/js/db.js',
     '/css/styles.css',
     '/css/materialize.min.css',
     '/img/clock.png',
