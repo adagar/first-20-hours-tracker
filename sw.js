@@ -1,5 +1,5 @@
 const staticCacheName = 'site-static-v3'; // the shell, or static resources
-const dynamicCache = 'site-dynamic-v3'; // cache for storing dynamic data, like when visiting diff pages on site
+const dynamicCache = 'site-dynamic-v9'; // cache for storing dynamic data, like when visiting diff pages on site
 
 const assets = [
     '/',

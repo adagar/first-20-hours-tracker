@@ -73,3 +73,8 @@ const renderSkill = (data, id) => {
     skills.innerHTML += html;
 }
 
+// Remove skill from DOM
+const removeSkill = (id) => {
+    const skill = document.querySelector(`.skill[data-id=${id}]`);
+    skill.remove();
+}

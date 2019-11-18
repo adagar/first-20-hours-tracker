@@ -20,6 +20,7 @@ db.collection('skill').onSnapshot((snapshot) => {
             renderSkill(change.doc.data(), change.doc.id);
         } else if(change.type === 'removed') {
             // remove doc data from webpage
+            removeSkill(change.doc.id);
         }
     });
 })
@@ -50,3 +51,17 @@ addSkillForm.addEventListener('submit', evt => {
 
 // add new session
 const addSessionForm = document.querySelector('form.add-session');
+
+
+// delete a recipe
+const recipeContainer = document.querySelector('.skills');
+recipeContainer.addEventListener('click', evt => {
+    // only delete if target is a trash icon
+    if(evt.target.tagName === "I") {
+        // Delete!
+        const id = evt.target.getAttribute('data-id');
+        console.log(id);
+        db.collection('skill').doc(id).delete();
+    }
+    console.log(evt);
+});
