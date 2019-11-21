@@ -46,7 +46,7 @@ addSkillForm.addEventListener('submit', evt => {
 
         addSkillForm['skill-content'].value = '';
         addSkillForm['skill-resource'].value = '';
-
+        // TODO add a sub-form for resources, to make an adjustable list
 })
 
 // add new session
