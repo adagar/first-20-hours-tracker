@@ -17,16 +17,7 @@
   <meta name="theme-color" content="#fa7952">
 </head>
 <body class="yellow lighten-2">
-    
-    <!-- top nav -->
-    <nav class="z-depth-0">
-        <div class="nav-wrapper container">
-            <a href="/">First 20 Hours - Tracker</a>
-            <span class="right grey-text text-darken-1">
-                <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
-            </span>
-        </div>
-    </nav>
+    <?php include "./components/header.html" ?>
 
     <!-- side nav -->
     <ul class="sidenav side-menu" id="side-menu">
