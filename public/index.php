@@ -22,32 +22,6 @@
     <?php include "./components/skills.html" ?>
     <?php include "./components/add-skill.html" ?>
     <?php include "./components/add-session.html" ?>
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyDNMSFYz5NnAkcM9JYJhCcw7Bi-jpYmPow",
-    authDomain: "hour-tracker-f3737.firebaseapp.com",
-    databaseURL: "https://hour-tracker-f3737.firebaseio.com",
-    projectId: "hour-tracker-f3737",
-    storageBucket: "hour-tracker-f3737.appspot.com",
-    messagingSenderId: "1025199454616",
-    appId: "1:1025199454616:web:94d5b34657ea7c73dd93ed",
-    measurementId: "G-JGR67TNSQP"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  firebase.analytics();
-</script>
-    <script src="/js/ui.js"></script>
-    <script src="/js/app.js"></script>
-    <script src="/js/db.js"></script>
+    <?php include "./scripts/scripts-aggregate.html" ?>
 </body>
 </html>
