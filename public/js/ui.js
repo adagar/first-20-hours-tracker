@@ -40,7 +40,7 @@ const renderSkill = (data, id) => {
         </li>`).join(''); 
 
     const html = `
-        <div class="card-panel skill white row" data-id="${id}">
+        <div class="card-panel skill white row data-id='${id}'">
             <img src="/img/clock.png" alt="skill thumb">
             <div class="skill-details">
                 <div class="skill-title">${data.skill}</div>
@@ -61,10 +61,10 @@ const renderSkill = (data, id) => {
             <!--Add Session Button-->
             <div class="center">
                 <a class="sidenav-trigger" data-target="side-session-form">
-                    <i class="skill-session-add btn-floating btn-small add-btn material-icons">alarm_add</i>
+                    <i class="skill-session-add btn-floating btn-small add-btn material-icons" data-id='${id}'>alarm_add</i>
                 </a>
                 <a class="">
-                    <i class="skill-delete btn-floating btn-small delete-btn material-icons" data-id="${id}">delete_outline</i>
+                    <i class="skill-delete btn-floating btn-small delete-btn material-icons" data-id='${id}'>delete_outline</i>
                 </a>
             </div>
         </div>

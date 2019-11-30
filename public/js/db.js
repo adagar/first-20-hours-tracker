@@ -49,19 +49,43 @@ addSkillForm.addEventListener('submit', evt => {
         // TODO add a sub-form for resources, to make an adjustable list
 })
 
-// add new session
-const addSessionForm = document.querySelector('form.add-session');
-
+// skill updating
+let id = null;
 
 // delete a skill
 const skillContainer = document.querySelector('.skills');
 skillContainer.addEventListener('click', evt => {
     // only delete if target is a trash icon
     if(evt.target.tagName === "I") {
-        // Delete!
-        const id = evt.target.getAttribute('data-id');
-        console.log(id);
-        db.collection('skill').doc(id).delete();
+        id = evt.target.getAttribute('data-id');
+        console.log("### SETTING id", id);
+        if(evt.target.classList.contains('skill-delete')) {
+            // Delete!            
+            console.log(id);
+            db.collection('skill').doc(id).delete();
+        }
     }
     console.log(evt);
 });
+
+// add new session
+const addSessionForm = document.querySelector('.add-session');
+console.log("Add session form:", addSessionForm);
+addSessionForm.addEventListener('submit', evt => {
+    evt.preventDefault();
+    const docRef = db.collection('skill').doc(id);
+
+    docRef.get().then(doc => {
+        if(doc.exists) {
+            console.log("#### SKILL", doc);
+        } else {
+            console.log("No such document");
+        }
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
+
+
+

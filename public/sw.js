@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v4'; // the shell, or static resources
+const staticCacheName = 'site-static-v7'; // the shell, or static resources
 const dynamicCache = 'site-dynamic-v9'; // cache for storing dynamic data, like when visiting diff pages on site
 
 const assets = [
