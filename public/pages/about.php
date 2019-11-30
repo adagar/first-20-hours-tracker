@@ -16,28 +16,9 @@
   <meta name="apple-mobile-web-app-status-bar" content="#ad3f43">
   <meta name="theme-color" content="#fa7952">
 </head>
-<body class="grey lighten-4">
-
-  <!-- top nav -->
-  <nav class="z-depth-0">
-    <div class="nav-wrapper container">
-      <a href="/">Food<span>Ninja</span></a>
-      <span class="right grey-text text-darken-1">
-        <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
-      </span>
-    </div>
-  </nav>
-
-  <!-- side nav -->
-  <ul id="side-menu" class="sidenav side-menu">
-    <li><a class="subheader">FOODNINJA</a></li>
-    <li><a href="/" class="waves-effect">Home</a></li>
-    <li><a href="/pages/about.html" class="waves-effect">About</a></li>
-    <li><div class="divider"></div></li>
-    <li><a href="/pages/contact.html" class="waves-effect">
-      <i class="material-icons">mail_outline</i>Contact</a>
-    </li>
-  </ul>
+<body class="yellow lighten-2">
+  <?php include "../components/header.html" ?>
+  <?php include "../components/sidenav.html" ?>
 
   <!-- content -->
   <div class="container grey-text">
