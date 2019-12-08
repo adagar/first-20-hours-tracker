@@ -80,7 +80,8 @@ addSessionForm.addEventListener('submit', evt => {
             console.log("#### SKILL", doc);
             const session = {
                 content: addSessionForm['practice-content'].value,
-                length: addSessionForm['practice-time'].value
+                length: addSessionForm['practice-time'].value,
+                date: Date.now()
             }
             docRef.update({
                 sessions: firebase.firestore.FieldValue.arrayUnion(session)
@@ -95,11 +96,5 @@ addSessionForm.addEventListener('submit', evt => {
     addSessionForm['practice-time'].value = '';
     })
 })
-
-const calcTotalTime = (sessions, format="min") => {
-    let minSum = sessions.reduce((total, session) => {
-        return total + session.length;
-    });
-}
 
 

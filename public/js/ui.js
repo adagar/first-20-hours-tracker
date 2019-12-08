@@ -32,12 +32,13 @@ const renderSkill = (data, id) => {
     console.log(resources);
 
     console.log(data.sessions);
-    const sessions = data.sessions.map(session =>
-        `<li>
-            <div>${session.date}</div>
-            <div>${session.description}</div>
+    const sessions = data.sessions.map(session => {
+        let date = new Date(session.date);
+        return (`<li>
+            <div>${date.toLocaleDateString()}</div>
+            <div>${session.content}</div>
             <div>${session.length}</div>
-        </li>`).join(''); 
+        </li>`)}).join(''); 
 
     const html = `
         <div class="card-panel skill white row data-id='${id}'">
