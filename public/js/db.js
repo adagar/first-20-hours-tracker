@@ -78,14 +78,28 @@ addSessionForm.addEventListener('submit', evt => {
     docRef.get().then(doc => {
         if(doc.exists) {
             console.log("#### SKILL", doc);
+            const session = {
+                content: addSessionForm['practice-content'].value,
+                length: addSessionForm['practice-time'].value
+            }
+            docRef.update({
+                sessions: firebase.firestore.FieldValue.arrayUnion(session)
+            })
         } else {
             console.log("No such document");
         }
     }).catch(error => {
         console.log(error);
+    }).then(() => {
+    addSessionForm['practice-content'].value = '';
+    addSessionForm['practice-time'].value = '';
     })
 })
 
-
+const calcTotalTime = (sessions, format="min") => {
+    let minSum = sessions.reduce((total, session) => {
+        return total + session.length;
+    });
+}
 
 
