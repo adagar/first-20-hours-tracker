@@ -87,3 +87,12 @@
   a>i.material-icons{
     line-height: 32px;
   }
+
+  .progress {
+    height: 300px;
+}
+
+.progress > svg {
+    height: 100%;
+    display: block;
+}

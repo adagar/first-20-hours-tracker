@@ -8,12 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //add skill form
     const forms = document.querySelectorAll('.side-form');
     M.Sidenav.init(forms, {edge: 'left'});
-
-    // const body = document.querySelector('.skills.container');
-    // body.innerHTML = (projects.map(project => _turnProjectIntoDashboardNode(project)).join(''));
-    console.log(forms);
-
-    console.log("DOM CONTENT LOAD COMPLETE");
+    console.log("#### CONTENT LOADED!");
 })
 
 const _turnProjectIntoDashboardNode = (project) => {
@@ -25,6 +20,7 @@ const _turnProjectIntoDashboardNode = (project) => {
 
 // render skill information
 const renderSkill = (data, id) => {
+    console.log("#### RENDER SKILL");
     const resources = data.resources.map(resource => `<li>${resource}</li>`).join('');
     const totalTime = convertTotalMinToString(data.sessions);
     const sessions = data.sessions.map(session => {
@@ -37,7 +33,10 @@ const renderSkill = (data, id) => {
 
     const html = `
         <div class="card-panel skill white row data-id='${id}'">
-            <img src="/img/clock.png" alt="skill thumb">
+            <div>
+                <img src="/img/clock.png" alt="skill thumb">
+                <div class="progress" id='${id}-progress-circle' />
+            </div>
             <div class="skill-details">
                 <div class="skill-title">${data.skill}</div>
                     <div class="skill-resources">
@@ -67,6 +66,7 @@ const renderSkill = (data, id) => {
     `
 
     skills.innerHTML += html;
+    updateProgressCircle(id);
 }
 
 // Remove skill from DOM
@@ -87,4 +87,22 @@ const convertTotalMinToString = sessions => {
     } else {
         return "Get started!";
     }
+}
+
+const updateProgressCircle = id => {
+    const circle = new ProgressBar.Circle(`#${id}-progress-circle`, {
+        color: '#FCB03C',
+        duration: 3000,
+        easing: 'easeInOut'
+    });
+
+    circle.animate(1, 
+        {
+            duration: 800
+        }, 
+        () => {
+            console.log(`${id}`, "ANIMATION COMPLETE!");
+        });
+
+    console.log(circle);
 }
