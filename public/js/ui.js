@@ -25,13 +25,8 @@ const _turnProjectIntoDashboardNode = (project) => {
 
 // render skill information
 const renderSkill = (data, id) => {
-    let totalTime = 0;
-
-    console.log(data.resources);
     const resources = data.resources.map(resource => `<li>${resource}</li>`).join('');
-    console.log(resources);
-
-    console.log(data.sessions);
+    const totalTime = convertTotalMinToString(data.sessions);
     const sessions = data.sessions.map(session => {
         let date = new Date(session.date);
         return (`<li>
@@ -78,4 +73,18 @@ const renderSkill = (data, id) => {
 const removeSkill = (id) => {
     const skill = document.querySelector(`.skill[data-id=${id}]`);
     skill.remove();
+}
+
+// Convert minutes to total time
+const convertTotalMinToString = sessions => {
+    console.log("### SESSIONS", sessions);
+    if(sessions.length){
+        let sumMin = sessions.reduce((sum, session) => {
+            let sessionLength = parseInt(session.length) ? parseInt(session.length) : 0;
+            return sum + sessionLength;
+        }, 0);
+        return `${Math.floor(sumMin / 60)} hours and ${sumMin % 60} minutes`;
+    } else {
+        return "Get started!";
+    }
 }

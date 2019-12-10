@@ -40,7 +40,7 @@ self.addEventListener('install', evt => {
   //console.log('service worker installed');
   evt.waitUntil(
     caches.open(staticCacheName).then((cache) => {
-      console.log('caching shell assets');
+      // console.log('caching shell assets');
       cache.addAll(assets); //
     })
   );
@@ -48,7 +48,7 @@ self.addEventListener('install', evt => {
 
 // activate event
 self.addEventListener('activate', evt => {
-    console.log('service worker has been activated');
+    // console.log('service worker has been activated');
     evt.waitUntil(
       caches.keys().then(keys => {
         return Promise.all(keys
@@ -61,7 +61,7 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-    console.log('fetch event', evt);
+    // console.log('fetch event', evt);
     if(!evt.request.url.includes('firestore.googleapis.com')){
       evt.respondWith(
       caches.match(evt.request).then(cacheRes => {
