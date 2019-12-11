@@ -1,4 +1,5 @@
 const skills = document.querySelector('.skills');
+let circle; 
 
 document.addEventListener('DOMContentLoaded', () => {
     //nav menu
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const forms = document.querySelectorAll('.side-form');
     M.Sidenav.init(forms, {edge: 'left'});
     console.log("#### CONTENT LOADED!");
+    circle = new ProgressBar.Circle();
 })
 
 const _turnProjectIntoDashboardNode = (project) => {
@@ -90,19 +92,13 @@ const convertTotalMinToString = sessions => {
 }
 
 const updateProgressCircle = id => {
-    const circle = new ProgressBar.Circle(`#${id}-progress-circle`, {
+    circle = new ProgressBar.Circle(`.progress#${id}-progress-circle`, {
         color: '#FCB03C',
-        duration: 3000,
+        duration: 8000,
         easing: 'easeInOut'
     });
 
-    circle.animate(1, 
-        {
-            duration: 800
-        }, 
-        () => {
-            console.log(`${id}`, "ANIMATION COMPLETE!");
-        });
+    circle.animate(1.0);
 
-    console.log(circle);
+    console.log(`#${id}-progress-circle`, circle);
 }
