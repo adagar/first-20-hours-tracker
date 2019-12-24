@@ -46,9 +46,9 @@
       const db = firebase.firestore();
       firebase.analytics();
     </script>
+        <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
         <script src="/js/ui.js"></script>
         <script src="/js/app.js"></script>
         <script src="/js/db.js"></script>
-        <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"></script>
 </body>
 </html>
