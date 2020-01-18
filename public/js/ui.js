@@ -35,7 +35,6 @@ const renderSkill = (data, id) => {
         <div class="card-panel skill white row data-id='${id}'">
             <div>
                 <img src="/img/clock.png" alt="skill thumb">
-                <div class="progress" id='${id}-progress-circle' />
             </div>
             <div class="skill-details">
                 <div class="skill-title">${data.skill}</div>
@@ -66,7 +65,6 @@ const renderSkill = (data, id) => {
     `
 
     skills.innerHTML += html;
-    updateProgressCircle(id);
 }
 
 // Remove skill from DOM
