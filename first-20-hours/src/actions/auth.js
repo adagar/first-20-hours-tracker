@@ -78,3 +78,14 @@ const verifySuccess = () => {
 };
 
 // TODO Create action functions for creating skills and sessions
+// example
+const addSkillSuccess = (skill, resources) => {
+  return {
+    type: ADD_SKILL_SUCCESS,
+    skill,
+    resources
+  };
+};
+
+// Thunk Functions
+export const loginUser = (email, password) => dispatch => {};
