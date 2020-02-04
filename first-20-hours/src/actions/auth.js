@@ -14,16 +14,6 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const VERIFY_REQUEST = 'VERIFY_REQUEST';
 export const VERIFY_SUCCESS = 'VERIFY_SUCCESS';
 
-// Add Skills
-export const ADD_SKILL_REQUEST = 'ADD_SKILL_REQUEST';
-export const ADD_SKILL_SUCCESS = 'ADD_SKILL_SUCCESS';
-export const ADD_SKILL_FAILURE = 'ADD_SKILL_FAILURE';
-
-// Add Session
-export const ADD_SESSION_REQUEST = 'ADD_SESSION_REQUEST';
-export const ADD_SESSION_SUCCESS = 'ADD_SESSION_SUCCESS';
-export const ADD_SESSION_FAILURE = 'ADD_SESSION_FAILURE';
-
 // TODO What other action types do we have?
 
 // ACTION FUNCTIONS
@@ -77,15 +67,39 @@ const verifySuccess = () => {
   };
 };
 
-// TODO Create action functions for creating skills and sessions
-// example
-const addSkillSuccess = (skill, resources) => {
-  return {
-    type: ADD_SKILL_SUCCESS,
-    skill,
-    resources
-  };
+// Thunk Functions
+export const loginUser = (email, password) => dispatch => {
+  dispatch(requestLogin());
+  myFirebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(user => {
+      dispatch(receiveLogin(user));
+    })
+    .catch(err => {
+      dispatch(loginError());
+    });
 };
 
-// Thunk Functions
-export const loginUser = (email, password) => dispatch => {};
+export const logoutUser = () => dispatch => {
+  dispatch(requestLogout());
+  myFirebase
+    .auth()
+    .signOut()
+    .then(() => {
+      dispatch(receiveLogout());
+    })
+    .catch(err => {
+      dispatch(logoutError());
+    });
+};
+
+export const verifyAuth = () => {
+  dispatch(verifyRequest());
+  myFirebase.auth.onAuthStateChanged(user => {
+    if (user !== null) {
+      dispatch(receiveLogin(user));
+    }
+    dispatch(verifySuccess());
+  });
+};
