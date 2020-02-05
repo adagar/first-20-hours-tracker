@@ -43,7 +43,7 @@ const requestLogout = () => {
   };
 };
 
-const logoutSuccess = () => {
+const receiveLogout = () => {
   return {
     type: LOGOUT_SUCCESS
   };
@@ -94,9 +94,9 @@ export const logoutUser = () => dispatch => {
     });
 };
 
-export const verifyAuth = () => {
+export const verifyAuth = () => dispatch => {
   dispatch(verifyRequest());
-  myFirebase.auth.onAuthStateChanged(user => {
+  myFirebase.auth().onAuthStateChanged(user => {
     if (user !== null) {
       dispatch(receiveLogin(user));
     }
