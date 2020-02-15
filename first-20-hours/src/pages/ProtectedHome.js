@@ -16,10 +16,7 @@ const ProtectedHome = ({
       isVerifying ? (
         <div />
       ) : isAuthenticated ? (
-        <Component {...props}>
-          <AddSkill />
-          <AddSession />
-        </Component>
+        <Component {...props} />
       ) : (
         <Redirect
           to={{
@@ -31,3 +28,5 @@ const ProtectedHome = ({
     }
   />
 );
+
+export default ProtectedHome;

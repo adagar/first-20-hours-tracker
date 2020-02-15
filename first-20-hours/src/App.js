@@ -9,16 +9,39 @@ import Header from './components/Header';
 import SideNav from './components/SideNav';
 
 import ProtectedHome from './pages/ProtectedHome';
-import Home from './components/Home';
-import Login from './components/Login';
+import Home from './pages/Home';
+import Login from './pages/Login';
 
-function App() {
+// function App() {
+//   return (
+//     <div className='App'>
+//       <Header />
+//       <SideNav />
+//     </div>
+//   );
+// }
+
+function App(props) {
+  const { isAuthenticated, isVerifying } = props;
   return (
-    <div className='App'>
-      <Header />
-      <SideNav />
-    </div>
+    <Switch>
+      <ProtectedHome
+        exact
+        path='/'
+        component={Home}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <Route path='/login' component={Login} />
+    </Switch>
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    isVerifying: state.auth.isVerifying
+  };
+}
+
+export default connect(mapStateToProps)(App);
