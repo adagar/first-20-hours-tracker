@@ -55,6 +55,7 @@ export class Login extends Component {
     const { dispatch } = this.props;
     const { email, password } = this.state;
 
+    console.log(dispatch, this.props);
     dispatch(loginUser(email, password));
   };
 
@@ -120,8 +121,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {};
-
-export default withStyles(styles)(
-  connect(mapStateToProps, mapDispatchToProps)(Login)
-);
+export default withStyles(styles)(connect(mapStateToProps)(Login));
