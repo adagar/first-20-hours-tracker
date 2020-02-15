@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { TextField } from '@material-ui/core';
+import { withStyles, mergeClasses } from '@material-ui/styles';
 
-export default class AddSkill extends Component {
+const styles = () => ({
+  btnFloating: {
+    padding: '25px 0'
+  }
+});
+class AddSkill extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.btnFloating}>
         <div className='center'>
           <a
             className='btn-floating btn-small add-btn sidenav-trigger'
@@ -43,3 +50,5 @@ export default class AddSkill extends Component {
     );
   }
 }
+
+export default withStyles(styles)(AddSkill);
