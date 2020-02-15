@@ -13,11 +13,6 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 
 const styles = () => ({
-  '@global': {
-    body: {
-      backgroundColor: '#fff'
-    }
-  },
   paper: {
     marginTop: 100,
     display: 'flex',
@@ -37,6 +32,16 @@ const styles = () => ({
     color: '#f50057',
     marginBottom: 5,
     textAlign: 'center'
+  },
+  submit: {
+    backgroundColor: '#666666',
+    color: 'white',
+    letterSpacing: '1px',
+    fontSize: '15px',
+    '&:hover': {
+      backgroundColor: 'white',
+      color: '#666666'
+    }
   }
 });
 
@@ -101,7 +106,6 @@ export class Login extends Component {
               type='button'
               fullWidth
               variant='contained'
-              color='primary'
               className={classes.submit}
               onClick={this.handleSubmit}>
               Sign in
