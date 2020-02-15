@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TextField } from '@material-ui/core';
 
 export default class AddSkill extends Component {
   render() {
@@ -14,27 +15,25 @@ export default class AddSkill extends Component {
 
         <div id='side-form' className='sidenav side-form'>
           <form className='add-skill container section'>
-            <h6>New Skill</h6>
+            <h6 className='center'>New Skill</h6>
             <div className='divider'></div>
-            <div className='input-field'>
-              <input
-                placeholder='e.g. Drawing'
-                id='skill-content'
-                type='text'
-                className='validate'
-              />
-              <label>I want to learn:</label>
-            </div>
-            <div className='input-field'>
-              <input
-                placeholder='e.g. Course, Video, Book'
-                id='skill-resource'
-                type='text'
-                className='validate'
-                placeholder='e.g. Class, book, video'
-              />
-              <label>Resources:</label>
-            </div>
+            <TextField
+              label='I want to learn:'
+              placeholder='e.g. Drawing'
+              id='skill-content'
+              type='text'
+              className='validate'
+              multiline
+            />
+            <TextField
+              placeholder='e.g. Course, Video, Book'
+              id='skill-resource'
+              type='text'
+              className='validate'
+              placeholder='e.g. Class, book, video'
+              label='Resources:'
+              multiline
+            />
             <div className='input-field center'>
               <button className='btn-small'>Start Learning!</button>
             </div>

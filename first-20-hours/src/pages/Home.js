@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions';
 import Header from '../components/Header';
 import SideNav from '../components/SideNav';
+import AddSkill from '../components/AddSkill';
 
 export class Home extends Component {
   handleLogout = () => {
@@ -16,7 +17,7 @@ export class Home extends Component {
       <div className='App'>
         <Header />
         <SideNav />
-        <button onClick={this.handleLogout}>Logout</button>
+        <AddSkill />
         {isLoggingOut && <p>Logging out...</p>}
         {logoutError && <p>Error logging out!</p>}
       </div>
@@ -31,6 +32,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);
