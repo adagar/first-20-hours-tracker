@@ -11,6 +11,7 @@ import SideNav from './components/SideNav';
 import ProtectedHome from './pages/ProtectedHome';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 // function App() {
 //   return (
@@ -33,6 +34,7 @@ function App(props) {
         isVerifying={isVerifying}
       />
       <Route path='/login' component={Login} />
+      <Route path='/register' component={Register} />
     </Switch>
   );
 }
