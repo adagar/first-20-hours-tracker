@@ -25,7 +25,7 @@ function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
     <Switch>
-      <ProtectedHome
+      <Home
         exact
         path='/'
         component={Home}
