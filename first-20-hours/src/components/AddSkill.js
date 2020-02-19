@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
 import { withStyles, mergeClasses } from '@material-ui/styles';
+import { addNewSkill } from '../actions';
 
 const styles = () => ({
   btnFloating: {
@@ -8,6 +10,24 @@ const styles = () => ({
   }
 });
 class AddSkill extends Component {
+  state = { skill: '', resources: [] };
+
+  handleSkillChange = ({ target }) => {
+    this.setState({ skill: target.value });
+  };
+
+  handleResourcesChange = ({ target }) => {
+    this.setState({ resources: target.value });
+  };
+
+  handleSubmit = evt => {
+    evt.preventDefault();
+    const { dispatch } = this.props;
+    const { skill, resources } = this.state;
+
+    dispatch(addNewSkill(skill, resources));
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -21,7 +41,9 @@ class AddSkill extends Component {
         </div>
 
         <div id='side-form' className='sidenav side-form'>
-          <form className='add-skill container section'>
+          <form
+            className='add-skill container section'
+            onSubmit={this.handleSubmit}>
             <h6 className='center'>New Skill</h6>
             <div className='divider'></div>
             <TextField
@@ -31,6 +53,7 @@ class AddSkill extends Component {
               type='text'
               className='validate'
               multiline
+              onChange={this.handleSkillChange}
             />
             <TextField
               placeholder='e.g. Course, Video, Book'
@@ -40,6 +63,7 @@ class AddSkill extends Component {
               placeholder='e.g. Class, book, video'
               label='Resources:'
               multiline
+              onChange={this.handleResourcesChange}
             />
             <div className='input-field center'>
               <button className='btn-small'>Start Learning!</button>
@@ -51,4 +75,10 @@ class AddSkill extends Component {
   }
 }
 
-export default withStyles(styles)(AddSkill);
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default withStyles(styles)(connect(mapStateToProps)(AddSkill));

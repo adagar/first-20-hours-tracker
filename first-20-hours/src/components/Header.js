@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Typography from '@material-ui/core/Typography';
+import { Link } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+
+const styles = () => ({
+  authLink: {
+    float: 'left',
+    padding: 20,
+    display: 'block',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  }
+});
 class Header extends Component {
   render() {
-    const { isAuthenticated } = this.props;
+    const { classes, isAuthenticated } = this.props;
     const mainHeaderContent = isAuthenticated ? (
       <i className='material-icons sidenav-trigger' data-target='side-menu'>
         menu
       </i>
     ) : (
-      <div>
-        <a href='/login' className='waves-effect'>
+      <Typography>
+        <Link href='/login' className={classes.authLink}>
           Login
-        </a>
-        <a href='/register' className='waves-effect'>
+        </Link>
+        <Link href='/register' className={classes.authLink}>
           Register
-        </a>
-      </div>
+        </Link>
+      </Typography>
     );
     return (
       <nav className='z-depth-0'>
@@ -37,4 +50,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Header);
+export default withStyles(styles)(connect(mapStateToProps)(Header));

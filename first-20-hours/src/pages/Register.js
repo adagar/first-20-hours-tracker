@@ -46,7 +46,7 @@ const styles = () => ({
 });
 
 export class Register extends Component {
-  state = { email: '', password: '' };
+  state = { email: '', password: '', verifyPassword: '' };
 
   handleEmailChange = ({ target }) => {
     this.setState({ email: target.value });
@@ -56,16 +56,22 @@ export class Register extends Component {
     this.setState({ password: target.value });
   };
 
+  handleVerifyPasswordChange = ({ target }) => {
+    this.setState({ verifyPassword: target.value });
+  };
+
   handleSubmit = () => {
     const { dispatch } = this.props;
     const { email, password } = this.state;
 
     console.log(dispatch, this.props);
+    console.log('LOGINERROR:', this.props.loginError);
     dispatch(registerUser(email, password));
   };
 
   render() {
     const { classes, loginError, isAuthenticated } = this.props;
+
     if (isAuthenticated) {
       return <Redirect to='/' />;
     } else {
@@ -97,9 +103,19 @@ export class Register extends Component {
               type='password'
               onChange={this.handlePasswordChange}
             />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              id='verify-password'
+              label='Verify Password'
+              name='verify-password'
+              type='password'
+              onChange={this.handleVerifyPasswordChange}
+            />
             {loginError && (
               <Typography component='p' className={classes.errorText}>
-                Incorrect email or password.
+                {loginError}
               </Typography>
             )}
             <Button
