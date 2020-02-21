@@ -1,16 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { watchSkills } from '../actions';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 export class SkillContent extends Component {
-  componentDidMount() {}
+  constructor() {
+    super();
+    this.state = { skills: [] };
+  }
+
+  componentDidMount() {
+    const { watchSkills, isAuthenticated } = this.props;
+    console.log('AM I AUTHENTICATED', isAuthenticated);
+    if (isAuthenticated) {
+      this.updateSkills();
+      console.log(watchSkills());
+    }
+  }
+
+  updateSkills = async () => {
+    console.log('UPDATE MY SKILLS!');
+    // await ski;
+  };
+
   render() {
-    return <div></div>;
+    const { watchSkills, isAuthenticated } = this.props;
+    const renderedSkills = watchSkills();
+    console.log('RENDER', renderedSkills);
+    return (
+      <div>
+        {/* {watchSkills.docChanges().map(change => {
+          return RenderSkill(change.doc.data(), change.doc.id);
+        })} */}
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({});
-
-const RenderSkill = (skill, id) => {
+const RenderSkill = (data, id) => {
   const resources = data.resources
     .map(resource => `<li>${resource}</li>`)
     .join('');
@@ -80,6 +108,18 @@ const convertTotalMinToString = sessions => {
   }
 };
 
-const mapDispatchToProps = {};
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SkillContent);
+const mapDispatchToProps = dispatch => {
+  return {
+    watchSkills: () => dispatch(watchSkills())
+  };
+};
+
+export default compose(connect(mapStateToProps, mapDispatchToProps))(
+  SkillContent
+);

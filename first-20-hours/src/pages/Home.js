@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions';
 import Header from '../components/Header';
 import SideNav from '../components/SideNav';
+import SkillContent from '../components/SkillContent';
 import AddSkill from '../components/AddSkill';
 
 export class Home extends Component {
@@ -17,6 +18,7 @@ export class Home extends Component {
       <div className='App'>
         <Header />
         <SideNav />
+        <SkillContent />
         <AddSkill />
         {isLoggingOut && <p>Logging out...</p>}
         {logoutError && <p>Error logging out!</p>}
