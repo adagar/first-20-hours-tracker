@@ -29,8 +29,8 @@ export class SkillContent extends Component {
     } else {
       const skillData = this.state.skills.map(skill => {
         console.log('RENDERING SKILL:', skill.data, skill.id);
-        // RenderSkill(skill, skill.id);
-        return <div>{skill.data.skill}</div>;
+        return RenderSkill(skill, skill.id);
+        // return <div>{skill.data.skill}</div>;
       });
       console.log('SKILL DATA RENDERED:', skillData);
       return <div>{skillData}!</div>;
