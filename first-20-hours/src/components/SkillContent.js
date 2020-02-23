@@ -7,27 +7,34 @@ import { firestoreConnect } from 'react-redux-firebase';
 export class SkillContent extends Component {
   constructor() {
     super();
-    this.state = { skills: [] };
+    this.state = { skills: null };
   }
 
   componentDidMount() {
     const { watchSkills, isAuthenticated } = this.props;
-    console.log('AM I AUTHENTICATED', isAuthenticated);
-    if (isAuthenticated) {
-      this.updateSkills();
-      console.log(watchSkills());
-    }
+    this.asyncSkills = watchSkills().then(extData => {
+      console.log('LOADED!', extData);
+      this.asyncSkills = null;
+      this.setState({ skills: extData });
+    });
   }
 
-  updateSkills = async () => {
+  updateSkills = () => {
     console.log('UPDATE MY SKILLS!');
-    // await ski;
   };
 
   render() {
-    const { watchSkills, isAuthenticated } = this.props;
-    const renderedSkills = watchSkills();
-    console.log('RENDER', renderedSkills);
+    if (this.state.skills === null) {
+      return <div>Loading...</div>;
+    } else {
+      const skillData = this.state.skills.map(skill => {
+        console.log('RENDERING SKILL:', skill.data, skill.id);
+        // RenderSkill(skill, skill.id);
+        return <div>{skill.data.skill}</div>;
+      });
+      console.log('SKILL DATA RENDERED:', skillData);
+      return <div>{skillData}!</div>;
+    }
     return (
       <div>
         {/* {watchSkills.docChanges().map(change => {
@@ -39,50 +46,56 @@ export class SkillContent extends Component {
 }
 
 const RenderSkill = (data, id) => {
+  console.log(data);
   const resources = data.resources
-    .map(resource => `<li>${resource}</li>`)
-    .join('');
+    ? data.resources.map(resource => <li>{resource}</li>).join('')
+    : null;
   const totalTime = convertTotalMinToString(data.sessions);
   const sessions = data.sessions
-    .map(session => {
-      let date = new Date(session.date);
-      return `<li>
-        <div>${date.toLocaleDateString()}</div>
-        <div>${session.content}</div>
-        <div>${session.length}</div>
-    </li>`;
-    })
-    .join('');
+    ? data.sessions
+        .map(session => {
+          let date = new Date(session.date);
+          return (
+            <li>
+              <div>{date.toLocaleDateString()}</div>
+              <div>{session.content}</div>
+              <div>{session.length}</div>
+            </li>
+          );
+        })
+        .join('')
+    : null;
 
-  return (
-    <div>
-      <div class="card-panel skill white row data-id='${id}'">
+  console.log('SESSIONS', sessions);
+  const renderedInfo = (
+    <div key={id}>
+      <div className='card-panel skill white row'>
         <div>
           <img src='/img/clock.png' alt='skill thumb' />
         </div>
-        <div class='skill-details'>
-          <div class='skill-title'>${data.skill}</div>
-          <div class='skill-resources'>
-            <ul>${resources}</ul>
+        <div className='skill-details'>
+          <div className='skill-title'>{data.skill}</div>
+          <div className='skill-resources'>
+            <ul>{resources}</ul>
           </div>
-          <div class='skill-sessions'>
-            <ul>${sessions}</ul>
+          <div className='skill-sessions'>
+            <ul>{sessions}</ul>
           </div>
-          <div class='skill-total'>${totalTime}</div>
+          <div className='skill-total'>{totalTime}</div>
         </div>
 
-        <div class='center'>
-          <a class='sidenav-trigger' data-target='side-session-form'>
+        <div className='center'>
+          <a className='sidenav-trigger' data-target='side-session-form'>
             <i
-              class='skill-session-add btn-floating btn-small add-btn material-icons'
-              data-id='${id}'>
+              className='skill-session-add btn-floating btn-small add-btn material-icons'
+              data-id={id}>
               alarm_add
             </i>
           </a>
-          <a class=''>
+          <a className=''>
             <i
-              class='skill-delete btn-floating btn-small delete-btn material-icons'
-              data-id='${id}'>
+              className='skill-delete btn-floating btn-small delete-btn material-icons'
+              data-id={id}>
               delete_outline
             </i>
           </a>
@@ -90,12 +103,14 @@ const RenderSkill = (data, id) => {
       </div>
     </div>
   );
+  console.log('RENDERED CONTENT:', renderedInfo);
+  return renderedInfo;
 };
 
 // Convert minutes to total time
 const convertTotalMinToString = sessions => {
-  console.log('### SESSIONS', sessions);
-  if (sessions.length) {
+  // console.log('### SESSIONS', sessions);
+  if (sessions && sessions.length) {
     let sumMin = sessions.reduce((sum, session) => {
       let sessionLength = parseInt(session.length)
         ? parseInt(session.length)

@@ -52,11 +52,32 @@ export const addNewSkill = (skill, resources) => dispatch => {
 export const watchSkills = () => dispatch => {
   dispatch(subscribeToSkills());
 
-  db.collection('skill').onSnapshot(snapshot => {
-    // snapshot.docChanges().forEach(change => {
-    //   console.log(change.doc.data(), change.doc.id);
-    // });
-    console.log('SNAPSHOT TIME', snapshot);
-    return snapshot.docChanges;
+  return new Promise((resolve, reject) => {
+    console.log('GETTING SKILLS');
+    let docCollection = [];
+    db.collection('skill')
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          docCollection.push({ data: doc.data(), id: doc.id });
+        });
+        console.log('DOC COLLECTION:', docCollection);
+        resolve(docCollection);
+        // if (doc.exists) {
+        //   console.log('DOC EXISTS');
+        //   resolve(doc);
+        // }
+      })
+      .catch(err => {
+        reject(err);
+      });
   });
+
+  // db.collection('skill').onSnapshot(snapshot => {
+  //   // snapshot.docChanges().forEach(change => {
+  //   //   console.log(change.doc.data(), change.doc.id);
+  //   // });
+  //   console.log('SNAPSHOT TIME', snapshot);
+  //   return snapshot.docChanges;
+  // });
 };
