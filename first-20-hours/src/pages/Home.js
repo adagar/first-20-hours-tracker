@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import SideNav from '../components/SideNav';
 import SkillContent from '../components/SkillContent';
 import AddSkill from '../components/AddSkill';
+import AddSession from '../components/AddSession';
 
 export class Home extends Component {
   handleLogout = () => {
@@ -20,6 +21,7 @@ export class Home extends Component {
         <SideNav />
         <SkillContent />
         <AddSkill />
+        <AddSession />
         {isLoggingOut && <p>Logging out...</p>}
         {logoutError && <p>Error logging out!</p>}
       </div>
