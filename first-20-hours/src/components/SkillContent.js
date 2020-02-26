@@ -46,13 +46,17 @@ export class SkillContent extends Component {
   }
 }
 
-const _renderResources = resources => (
-  <ul>
-    {resources.map(resource => (
-      <li>{resource}</li>
-    ))}
-  </ul>
-);
+const _renderResources = resources => {
+  console.log('_rendeResources', resources);
+  resources = Array.isArray(resources) ? resources : [resources];
+  return (
+    <ul>
+      {resources.map(resource => (
+        <li>{resource}</li>
+      ))}
+    </ul>
+  );
+};
 
 const _renderSessions = sessions => (
   <ul>
@@ -72,6 +76,9 @@ const RenderSkill = (data, id) => {
   console.log('RENDERING THIS CONTENT:', data);
   const totalTime = convertTotalMinToString(data.sessions);
 
+  const resources = Array.isArray(data.resources)
+    ? data.resources
+    : [data.resources];
   const renderedInfo = (
     <div key={id}>
       <div className='card-panel skill white row'>
@@ -81,7 +88,7 @@ const RenderSkill = (data, id) => {
         <div className='skill-details'>
           <div className='skill-title'>{data.skill}</div>
           <div className='skill-resources'>
-            {data.resources ? _renderResources(data.resources) : null}
+            {_renderResources(data.resources)}
           </div>
           <div className='skill-sessions'>
             <ul>{_renderSessions(data.sessions)}</ul>
