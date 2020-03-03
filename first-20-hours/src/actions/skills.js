@@ -6,6 +6,11 @@ const db = myFirebase.firestore();
 export const ADD_SKILL_REQUEST = 'ADD_SKILL_REQUEST';
 export const ADD_SKILL_SUCCESS = 'ADD_SKILL_SUCCESS';
 export const ADD_SKILL_FAILURE = 'ADD_SKILL_FAILURE';
+
+export const DELETE_SKILL_REQUEST = 'DELETE_SKILL_REQUEST';
+export const DELETE_SKILL_SUCCESS = 'DELETE_SKILL_SUCCESS';
+export const DELETE_SKILL_FAILURE = 'DELETE_SKILL_FAILURE';
+
 export const WATCH_SKILLS = 'WATCH_SKILLS';
 
 // TODO Create action functions for creating skills and sessions
@@ -28,6 +33,24 @@ const receiveNewSkill = () => {
   };
 };
 
+const requestDeleteSkill = skillId => {
+  return {
+    type: DELETE_SKILL_REQUEST
+  };
+};
+
+const deleteSkillSuccess = () => {
+  return {
+    type: DELETE_SKILL_SUCCESS
+  };
+};
+
+const deleteSkillFailure = () => {
+  return {
+    type: DELETE_SKILL_FAILURE
+  };
+};
+
 const subscribeToSkills = () => {
   return {
     type: WATCH_SKILLS
@@ -47,6 +70,15 @@ export const addNewSkill = (skill, resources) => dispatch => {
     .catch(err => {
       dispatch(newSkillError());
     });
+};
+
+export const deleteSkill = skillId => dispatch => {
+  if (skillId) {
+    console.log('#### DELETE SKILL');
+    db.collection('skill')
+      .doc(skillId)
+      .delete();
+  }
 };
 
 export const watchSkills = () => dispatch => {
