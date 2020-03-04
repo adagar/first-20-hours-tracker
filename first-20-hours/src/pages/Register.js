@@ -60,9 +60,12 @@ export class Register extends Component {
     this.setState({ verifyPassword: target.value });
   };
 
-  handleSubmit = () => {
+  handleSubmit = evt => {
     const { dispatch } = this.props;
     const { email, password } = this.state;
+
+    evt.preventDefault();
+    evt.stopPropagation();
 
     console.log(dispatch, this.props);
     console.log('LOGINERROR:', this.props.loginError);
@@ -78,54 +81,56 @@ export class Register extends Component {
       return (
         <Container component='main' maxWidth='xs'>
           <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component='h1' variant='h5'>
-              Sign up
-            </Typography>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              id='email'
-              label='Email Address'
-              name='email'
-              onChange={this.handleEmailChange}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              id='password'
-              label='Password'
-              name='password'
-              type='password'
-              onChange={this.handlePasswordChange}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              id='verify-password'
-              label='Verify Password'
-              name='verify-password'
-              type='password'
-              onChange={this.handleVerifyPasswordChange}
-            />
-            {loginError && (
-              <Typography component='p' className={classes.errorText}>
-                {loginError}
+            <form className={classes.root} onSubmit={this.handleSubmit}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component='h1' variant='h5'>
+                Sign up
               </Typography>
-            )}
-            <Button
-              type='button'
-              fullWidth
-              variant='contained'
-              className={classes.submit}
-              onClick={this.handleSubmit}>
-              Sign in
-            </Button>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                id='email'
+                label='Email Address'
+                name='email'
+                onChange={this.handleEmailChange}
+              />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                id='password'
+                label='Password'
+                name='password'
+                type='password'
+                onChange={this.handlePasswordChange}
+              />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                id='verify-password'
+                label='Verify Password'
+                name='verify-password'
+                type='password'
+                onChange={this.handleVerifyPasswordChange}
+              />
+              {loginError && (
+                <Typography component='p' className={classes.errorText}>
+                  {loginError}
+                </Typography>
+              )}
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                className={classes.submit}
+                onSubmit={this.handleSubmit}>
+                Sign in
+              </Button>
+            </form>
           </Paper>
         </Container>
       );

@@ -25,24 +25,27 @@ import Register from './pages/Register';
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
-    <Switch>
-      {/* <Home
+    <div className='App'>
+      <Header />
+      <Switch>
+        {/* <Home
         exact
         path='/'
         component={Home}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       /> */}
-      <ProtectedHome
-        exact
-        path='/'
-        component={Home}
-        isAuthenticated={isAuthenticated}
-        isVerifying={isVerifying}
-      />
-      <Route path='/login' component={Login} />
-      <Route path='/register' component={Register} />
-    </Switch>
+        <ProtectedHome
+          exact
+          path='/'
+          component={Home}
+          isAuthenticated={isAuthenticated}
+          isVerifying={isVerifying}
+        />
+        <Route path='/login' component={Login} />
+        <Route path='/register' component={Register} />
+      </Switch>
+    </div>
   );
 }
 
