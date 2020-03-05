@@ -54,9 +54,10 @@ const receiveRegister = user => {
   };
 };
 
-const registerError = () => {
+const registerError = err => {
   return {
-    type: REGISTER_FAILURE
+    type: REGISTER_FAILURE,
+    err
   };
 };
 
@@ -126,7 +127,8 @@ export const registerUser = (email, password) => dispatch => {
       dispatch(receiveLogin(user));
     })
     .catch(err => {
-      dispatch(registerError());
+      console.log('REGISTER USER ERROR', err.message);
+      dispatch(registerError(err));
     });
 };
 

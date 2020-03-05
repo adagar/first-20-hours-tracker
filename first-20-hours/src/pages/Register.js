@@ -68,13 +68,12 @@ export class Register extends Component {
     evt.stopPropagation();
 
     console.log(dispatch, this.props);
-    console.log('LOGINERROR:', this.props.loginError);
     dispatch(registerUser(email, password));
   };
 
   render() {
-    const { classes, loginError, isAuthenticated } = this.props;
-
+    const { classes, registerError, isAuthenticated, err } = this.props;
+    console.log('DO I HAVE A REGISTER ERROR?', registerError, err);
     if (isAuthenticated) {
       return <Redirect to='/' />;
     } else {
@@ -117,9 +116,9 @@ export class Register extends Component {
                 type='password'
                 onChange={this.handleVerifyPasswordChange}
               />
-              {loginError && (
+              {registerError && (
                 <Typography component='p' className={classes.errorText}>
-                  {loginError}
+                  {err.message}
                 </Typography>
               )}
               <Button
@@ -139,10 +138,12 @@ export class Register extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('MAP STATE TO PROPS', state);
   return {
     isLoggingIn: state.auth.isLoggingIn,
-    loginError: state.auth.loginError,
-    isAuthenticated: state.auth.isAuthenticated
+    registerError: state.auth.registerError,
+    isAuthenticated: state.auth.isAuthenticated,
+    err: state.auth.err
   };
 };
 
