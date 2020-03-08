@@ -78,12 +78,14 @@ nav .sidenav-trigger {
   background: var(--delete-btn-bkg) !important;
 }
 input {
+  border-bottom: none !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
 }
-.side-form button {
+.side-form .btn-small {
   background: var(--btn-bkg);
   box-shadow: 1px 1px 3px rgba(90, 90, 90, 0.2);
+  color: white;
 }
 form .input-field {
   margin-top: 30px;

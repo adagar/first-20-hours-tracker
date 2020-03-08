@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { withStyles, mergeClasses } from '@material-ui/styles';
 import { addNewSkill } from '../actions';
+import M from 'materialize-css';
 
 const styles = () => ({
   btnFloating: {
@@ -10,7 +11,12 @@ const styles = () => ({
   }
 });
 class AddSkill extends Component {
-  state = { skill: '', resources: [] };
+  constructor(props) {
+    super(props);
+
+    this.myRef = React.createRef();
+    this.state = { skill: '', resources: [] };
+  }
 
   handleSkillChange = ({ target }) => {
     this.setState({ skill: target.value });
@@ -21,12 +27,24 @@ class AddSkill extends Component {
   };
 
   handleSubmit = evt => {
+    console.log('### SUBMIT NEW SKILL', this.myRef.current);
+
     evt.preventDefault();
     const { dispatch } = this.props;
     const { skill, resources } = this.state;
 
     dispatch(addNewSkill(skill, resources));
+    this._toggleSideNav();
   };
+
+  _toggleSideNav = () => {
+    const sideNavInstance = M.Sidenav.getInstance(this.myRef.current);
+    sideNavInstance.close();
+  };
+
+  componentDidMount() {
+    M.AutoInit();
+  }
 
   render() {
     const { classes } = this.props;
@@ -40,7 +58,11 @@ class AddSkill extends Component {
           </a>
         </div>
 
-        <div id='side-form' className='sidenav side-form'>
+        <div
+          id='side-form'
+          className={`sidenav side-form ${classes.root}`}
+          autoComplete='off'
+          ref={this.myRef}>
           <form
             className='add-skill container section'
             onSubmit={this.handleSubmit}>
@@ -52,21 +74,27 @@ class AddSkill extends Component {
               id='skill-content'
               type='text'
               className='validate'
-              multiline
+              // multiline
+              // disableUnderline={true}
               onChange={this.handleSkillChange}
             />
             <TextField
               placeholder='e.g. Course, Video, Book'
               id='skill-resource'
-              type='text'
+              // type='text'
               className='validate'
               placeholder='e.g. Class, book, video'
               label='Resources:'
-              multiline
+              // multiline
               onChange={this.handleResourcesChange}
             />
             <div className='input-field center'>
-              <button className='btn-small'>Start Learning!</button>
+              <button
+                type='submit'
+                className='btn-small'
+                onSubmit={this.handleSubmit}>
+                Start Learning!
+              </button>
             </div>
           </form>
         </div>
