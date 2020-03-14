@@ -37,6 +37,7 @@ class AddSkill extends Component {
     const { skill, resources } = this.state;
 
     dispatch(addNewSkill(skill, resources));
+    this.props.updateSkills();
     this._toggleSideNav();
   };
 

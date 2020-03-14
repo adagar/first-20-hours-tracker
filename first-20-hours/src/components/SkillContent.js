@@ -2,29 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteSkill, watchSkills } from '../actions';
 import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
+import { useFirebaseConnect, firestoreConnect } from 'react-redux-firebase';
 import M from 'materialize-css';
 
 export class SkillContent extends Component {
   constructor() {
     super();
-    this.state = { skills: null };
   }
 
   componentDidMount() {
     M.AutoInit();
-    this.updateSkills();
+    this.props.updateSkills();
   }
-
-  updateSkills = () => {
-    console.log('UPDATE MY SKILLS!');
-    const { watchSkills, isAuthenticated } = this.props;
-    this.asyncSkills = watchSkills().then(extData => {
-      console.log('LOADED!', extData);
-      this.asyncSkills = null;
-      this.setState({ skills: extData });
-    });
-  };
 
   _renderResources = resources => {
     console.log('_rendeResources', resources);
@@ -56,7 +45,7 @@ export class SkillContent extends Component {
     console.log('#### DELETETING SKILL', skillId);
     const { deleteSkill } = this.props;
     deleteSkill(skillId);
-    this.updateSkills();
+    this.props.updateSkills();
   };
 
   RenderSkill = (data, id) => {
@@ -125,10 +114,10 @@ export class SkillContent extends Component {
   };
 
   render() {
-    if (this.state.skills === null) {
+    if (this.props.skills === null) {
       return <div>Loading...</div>;
     } else {
-      const skillData = this.state.skills.map(skill => {
+      const skillData = this.props.skills.map(skill => {
         console.log('RENDERING SKILL:', skill.data, skill.id);
         return this.RenderSkill(skill.data, skill.id);
       });
@@ -147,7 +136,8 @@ export class SkillContent extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    mySkills: state.skills.mySkills
   };
 };
 
