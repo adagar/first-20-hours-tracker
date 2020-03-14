@@ -14,7 +14,10 @@ class AddSkill extends Component {
   constructor(props) {
     super(props);
 
-    this.myRef = React.createRef();
+    this.sideNavRef = React.createRef();
+    this.skillTitleRef = React.createRef();
+    this.skillResourceRef = React.createRef();
+
     this.state = { skill: '', resources: [] };
   }
 
@@ -27,7 +30,7 @@ class AddSkill extends Component {
   };
 
   handleSubmit = evt => {
-    console.log('### SUBMIT NEW SKILL', this.myRef.current);
+    console.log('### SUBMIT NEW SKILL', this.sideNavRef.current);
 
     evt.preventDefault();
     const { dispatch } = this.props;
@@ -38,8 +41,9 @@ class AddSkill extends Component {
   };
 
   _toggleSideNav = () => {
-    const sideNavInstance = M.Sidenav.getInstance(this.myRef.current);
+    const sideNavInstance = M.Sidenav.getInstance(this.sideNavRef.current);
     sideNavInstance.close();
+    console.log('####skill ttile ref:', this.skillTitleRef.current);
   };
 
   componentDidMount() {
@@ -62,7 +66,7 @@ class AddSkill extends Component {
           id='side-form'
           className={`sidenav side-form ${classes.root}`}
           autoComplete='off'
-          ref={this.myRef}>
+          ref={this.sideNavRef}>
           <form
             className='add-skill container section'
             onSubmit={this.handleSubmit}>
@@ -74,8 +78,7 @@ class AddSkill extends Component {
               id='skill-content'
               type='text'
               className='validate'
-              // multiline
-              // disableUnderline={true}
+              ref={this.skillTitleRef}
               onChange={this.handleSkillChange}
             />
             <TextField
@@ -85,7 +88,7 @@ class AddSkill extends Component {
               className='validate'
               placeholder='e.g. Class, book, video'
               label='Resources:'
-              // multiline
+              ref={this.skillResourceRef}
               onChange={this.handleResourcesChange}
             />
             <div className='input-field center'>
