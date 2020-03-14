@@ -20,8 +20,8 @@ export class SkillContent extends Component {
     resources = Array.isArray(resources) ? resources : [resources];
     return (
       <ul>
-        {resources.map(resource => (
-          <li>{resource}</li>
+        {resources.map((resource, index) => (
+          <li key={index}>{resource}</li>
         ))}
       </ul>
     );
@@ -29,8 +29,8 @@ export class SkillContent extends Component {
 
   _renderSessions = sessions => (
     <ul>
-      {sessions.map(session => (
-        <li>
+      {sessions.map((session, index) => (
+        <li key={index}>
           <div>
             {session.date ? new Date(session.date).toLocaleDateString() : null}
           </div>
