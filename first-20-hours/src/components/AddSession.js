@@ -8,6 +8,8 @@ class AddSession extends Component {
   constructor(props) {
     super(props);
 
+    this.sideNavRef = React.createRef();
+
     this.state = { content: '', length: 0 };
   }
 
@@ -17,6 +19,11 @@ class AddSession extends Component {
 
   _handleSessionTimeChange = ({ target }) => {
     this.setState({ length: target.value });
+  };
+
+  _toggleSideNav = () => {
+    const sideNavInstance = M.Sidenav.getInstance(this.sideNavRef.current);
+    sideNavInstance.close();
   };
 
   _handleSubmit = evt => {
@@ -29,6 +36,7 @@ class AddSession extends Component {
     const date = Date.now();
     const newSession = { content, length, date };
 
+    this._toggleSideNav();
     dispatch(addSession(focusSkill, newSession));
   };
 
@@ -38,7 +46,10 @@ class AddSession extends Component {
 
   render() {
     return (
-      <div id='side-session-form' className='sidenav side-form'>
+      <div
+        id='side-session-form'
+        className='sidenav side-form'
+        ref={this.sideNavRef}>
         <form
           className='add-session container section'
           onSubmit={this._handleSubmit}>
