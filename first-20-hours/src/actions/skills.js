@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import { myFirebase } from '../firebase/firebase';
 
 const db = myFirebase.firestore();
@@ -12,6 +13,12 @@ export const DELETE_SKILL_SUCCESS = 'DELETE_SKILL_SUCCESS';
 export const DELETE_SKILL_FAILURE = 'DELETE_SKILL_FAILURE';
 
 export const WATCH_SKILLS = 'WATCH_SKILLS';
+export const FOCUS_SKILL = 'FOCUS_SKILL';
+
+// Add Sessions
+export const ADD_SESSION_REQUEST = 'ADD_SESSION_REQUEST';
+export const ADD_SESSION_SUCCESS = 'ADD_SESSION_SUCCESS';
+export const ADD_SESSION_FAILURE = 'ADD_SESSION_FAILURE';
 
 // TODO Create action functions for creating skills and sessions
 // example
@@ -51,9 +58,34 @@ const deleteSkillFailure = () => {
   };
 };
 
+const requestAddSession = skillId => {
+  return {
+    type: ADD_SESSION_REQUEST
+  };
+};
+
+const newSessionError = () => {
+  return {
+    type: ADD_SESSION_FAILURE
+  };
+};
+
+const newSessionSuccess = () => {
+  return {
+    type: ADD_SESSION_SUCCESS
+  };
+};
+
 const subscribeToSkills = () => {
   return {
     type: WATCH_SKILLS
+  };
+};
+
+const focusSkill = skillId => {
+  return {
+    type: FOCUS_SKILL,
+    skillId
   };
 };
 
@@ -112,4 +144,32 @@ export const watchSkills = () => dispatch => {
   //   console.log('SNAPSHOT TIME', snapshot);
   //   return snapshot.docChanges;
   // });
+};
+
+export const addSession = (skillId, session) => dispatch => {
+  dispatch(requestAddSession());
+
+  console.log('### ADD SESSION THUNK', skillId, session);
+
+  const docRef = db.collection('skill').doc(skillId);
+
+  docRef
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        docRef.update({
+          sessions: firebase.firestore.FieldValue.arrayUnion(session)
+        });
+      } else {
+        console.log('No such document');
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
+export const focusOnSkill = skillId => dispatch => {
+  console.log('#### FOCUS SKILL THUNK', skillId);
+  dispatch(focusSkill(skillId));
 };

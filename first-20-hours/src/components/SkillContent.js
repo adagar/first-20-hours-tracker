@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteSkill, watchSkills } from '../actions';
+import { deleteSkill, watchSkills, focusOnSkill } from '../actions';
 import { compose } from 'redux';
 import { useFirebaseConnect, firestoreConnect } from 'react-redux-firebase';
 import M from 'materialize-css';
@@ -48,6 +48,13 @@ export class SkillContent extends Component {
     this.props.updateSkills();
   };
 
+  _focusSkill = evt => {
+    const { dispatch, focusOnSkill } = this.props;
+    const skillId = evt.target.getAttribute('data-id');
+    console.log('#### FOCUS SKILL', skillId);
+    focusOnSkill(skillId);
+  };
+
   RenderSkill = (data, id) => {
     console.log('RENDERING THIS CONTENT:', data);
     const totalTime = this.convertTotalMinToString(data.sessions);
@@ -73,13 +80,14 @@ export class SkillContent extends Component {
           </div>
 
           <div className='center'>
-            <a
+            <button
               className='sidenav-trigger skill-session-add btn-floating btn-small add-btn '
-              data-target='side-session-form'>
+              data-target='side-session-form'
+              onClick={this._focusSkill}>
               <i className='material-icons' data-id={id}>
                 alarm_add
               </i>
-            </a>
+            </button>
             <button
               className='skill-delete btn-floating btn-small delete-btn'
               onClick={() => {
@@ -144,7 +152,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     watchSkills: () => dispatch(watchSkills()),
-    deleteSkill: skillId => dispatch(deleteSkill(skillId))
+    deleteSkill: skillId => dispatch(deleteSkill(skillId)),
+    focusOnSkill: skillId => dispatch(focusOnSkill(skillId))
   };
 };
 
