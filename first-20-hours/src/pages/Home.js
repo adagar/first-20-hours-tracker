@@ -36,7 +36,7 @@ export class Home extends Component {
           updateSkills={this.updateSkills}
         />
         <AddSkill updateSkills={this.updateSkills} />
-        <AddSession />
+        <AddSession updateSkills={this.updateSkills} />
         {isLoggingOut && <p>Logging out...</p>}
         {logoutError && <p>Error logging out!</p>}
       </div>

@@ -36,8 +36,9 @@ class AddSession extends Component {
     const date = Date.now();
     const newSession = { content, length, date };
 
-    this._toggleSideNav();
     dispatch(addSession(focusSkill, newSession));
+    this._toggleSideNav();
+    this.props.updateSkills();
   };
 
   componentDidMount() {
