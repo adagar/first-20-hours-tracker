@@ -122,13 +122,18 @@ export class SkillContent extends Component {
   };
 
   render() {
+    const { userId } = this.props;
+
     if (this.props.skills === null) {
       return <div>Loading...</div>;
     } else {
-      const skillData = this.props.skills.map(skill => {
-        console.log('RENDERING SKILL:', skill.data, skill.id);
-        return this.RenderSkill(skill.data, skill.id);
-      });
+      const skillData = this.props.skills
+        .filter(skill => skill.data.userId == userId)
+        .map(skill => {
+          // console.log('SKILL USER ID', skill.data.userId, userId);
+          console.log('RENDERING SKILL:', skill.data, skill.id);
+          return this.RenderSkill(skill.data, skill.id);
+        });
       console.log('SKILL DATA RENDERED:', skillData);
       return <div>{skillData}!</div>;
     }
@@ -145,6 +150,7 @@ export class SkillContent extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
+    userId: state.auth.user.uid,
     mySkills: state.skills.mySkills
   };
 };

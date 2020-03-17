@@ -90,10 +90,13 @@ const focusSkill = skillId => {
 };
 
 // Thunk Functions
-export const addNewSkill = (skill, resources) => dispatch => {
+export const addNewSkill = (skill, resources) => (dispatch, getState) => {
   dispatch(requestAddSkill());
+  const state = getState();
+  const userId = state.auth.user.uid;
 
-  const newSkill = { skill, resources, sessions: [] };
+  const newSkill = { userId, skill, resources, sessions: [] };
+
   console.log('#### NEW SKILL', newSkill);
 
   db.collection('skill')

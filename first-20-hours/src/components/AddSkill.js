@@ -52,7 +52,8 @@ class AddSkill extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, userId } = this.props;
+    console.log('#### USER', userId);
     return (
       <div className={classes.btnFloating}>
         <div className='center'>
@@ -109,7 +110,8 @@ class AddSkill extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    userId: state.auth.user.uid
   };
 };
 
