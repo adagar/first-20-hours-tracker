@@ -135,7 +135,11 @@ export class SkillContent extends Component {
           return this.RenderSkill(skill.data, skill.id);
         });
       console.log('SKILL DATA RENDERED:', skillData);
-      return <div>{skillData}!</div>;
+      return skillData.length ? (
+        <div>{skillData}</div>
+      ) : (
+        <div>Get started!</div>
+      );
     }
     return (
       <div>
