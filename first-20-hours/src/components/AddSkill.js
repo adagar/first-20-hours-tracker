@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, IconButton } from '@material-ui/core';
+import { AddCircleOutline } from '@material-ui/icons';
 import { withStyles, mergeClasses } from '@material-ui/styles';
 import { addNewSkill } from '../actions';
 import M from 'materialize-css';
@@ -18,7 +19,7 @@ class AddSkill extends Component {
     this.skillTitleRef = React.createRef();
     this.skillResourceRef = React.createRef();
 
-    this.state = { skill: '', resources: [] };
+    this.state = { skill: '', resources: [], resourceCount: 1 };
   }
 
   handleSkillChange = ({ target }) => {
@@ -54,6 +55,32 @@ class AddSkill extends Component {
   render() {
     const { classes, userId } = this.props;
     console.log('#### USER', userId);
+    const resources = () => {
+      let resourceList = [];
+      resourceList.push(
+        <TextField
+          placeholder='e.g. Course, Video, Book'
+          id='skill-resource'
+          // type='text'
+          className='validate'
+          placeholder='e.g. Class, book, video'
+          label='Resources:'
+          ref={this.skillResourceRef}
+          onChange={this.handleResourcesChange}
+        />
+      );
+      for (let i = 1; i < this.state.resourceCount; i++) {
+        resourceList.push(
+          <TextField
+            id='skill-resource'
+            className='validate'
+            ref={this.skillResourceRef}
+            onChange={this.handleResourcesChange}
+          />
+        );
+      }
+      return resourceList;
+    };
     return (
       <div className={classes.btnFloating}>
         <div className='center'>
@@ -83,16 +110,17 @@ class AddSkill extends Component {
               ref={this.skillTitleRef}
               onChange={this.handleSkillChange}
             />
-            <TextField
-              placeholder='e.g. Course, Video, Book'
-              id='skill-resource'
-              // type='text'
-              className='validate'
-              placeholder='e.g. Class, book, video'
-              label='Resources:'
-              ref={this.skillResourceRef}
-              onChange={this.handleResourcesChange}
-            />
+            {resources()}
+            <IconButton
+              aria-label='add resource'
+              className='center'
+              onClick={() => {
+                this.setState(state => {
+                  return { resourceCount: state.resourceCount + 1 };
+                });
+              }}>
+              <AddCircleOutline />
+            </IconButton>
             <div className='input-field center'>
               <button
                 type='submit'
