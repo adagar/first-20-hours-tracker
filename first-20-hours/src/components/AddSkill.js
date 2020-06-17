@@ -9,6 +9,9 @@ import M from 'materialize-css';
 const styles = () => ({
   btnFloating: {
     padding: '25px 0'
+  },
+  inlineBtn: {
+    padding: '25px 0px'
   }
 });
 class AddSkill extends Component {
@@ -19,15 +22,22 @@ class AddSkill extends Component {
     this.skillTitleRef = React.createRef();
     this.skillResourceRef = React.createRef();
 
-    this.state = { skill: '', resources: [], resourceCount: 1 };
+    this.state = { skill: '', resources: [''] };
+    console.log('#### CONSTRUCTOR', typeof this.state.resources);
   }
 
   handleSkillChange = ({ target }) => {
     this.setState({ skill: target.value });
   };
 
-  handleResourcesChange = ({ target }) => {
-    this.setState({ resources: target.value });
+  handleResourcesChange = ({ target }, index) => {
+    console.log('#### HANDLING RESOURCE CHANGE', target);
+    this.setState(state => {
+      let resources = [...state.resources];
+      resources[index] = target.value;
+      return { resources };
+    });
+    console.log(this.state.resources);
   };
 
   handleSubmit = evt => {
@@ -59,23 +69,26 @@ class AddSkill extends Component {
       let resourceList = [];
       resourceList.push(
         <TextField
+          key={0}
+          data-key={0}
           placeholder='e.g. Course, Video, Book'
-          id='skill-resource'
-          // type='text'
+          id='skill-resource-0'
           className='validate'
           placeholder='e.g. Class, book, video'
           label='Resources:'
           ref={this.skillResourceRef}
-          onChange={this.handleResourcesChange}
+          onChange={e => this.handleResourcesChange(e, 0)}
         />
       );
-      for (let i = 1; i < this.state.resourceCount; i++) {
+      for (let i = 1; i < this.state.resources.length; i++) {
         resourceList.push(
           <TextField
-            id='skill-resource'
+            key={i}
+            data-key={i}
+            id={'skill-resource-' + i}
             className='validate'
             ref={this.skillResourceRef}
-            onChange={this.handleResourcesChange}
+            onChange={e => this.handleResourcesChange(e, i)}
           />
         );
       }
@@ -113,10 +126,12 @@ class AddSkill extends Component {
             {resources()}
             <IconButton
               aria-label='add resource'
-              className='center'
+              className={classes.inlineBtn}
               onClick={() => {
                 this.setState(state => {
-                  return { resourceCount: state.resourceCount + 1 };
+                  console.log('#### NEW RESOURCE', state.resources);
+                  // let newResources = ...state.resources, ''
+                  return { resources: [...state.resources, ''] };
                 });
               }}>
               <AddCircleOutline />
